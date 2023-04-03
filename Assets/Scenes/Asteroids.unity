@@ -324,6 +324,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   asteroidPrefab: {fileID: 4394751245055917805, guid: 784457ffd007edb439542cee61bb2ca8,
     type: 3}
+  cometPrefab: {fileID: -1148443028792417142, guid: 5d7f4ea5fbd3bc94abeb3bddd4767e41,
+    type: 3}
+  spaceshipPrefab: {fileID: -4040199655392371495, guid: e4bce29eccb5f40489bc715df7dfac08,
+    type: 3}
   spawnDistance: 12
   spawnRate: 1
   amountPerSpawn: 1

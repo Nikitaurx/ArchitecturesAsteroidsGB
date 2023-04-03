@@ -29,10 +29,19 @@ public class GameManager : MonoBehaviour
     public void NewGame()
     {
         Asteroid[] asteroids = FindObjectsOfType<Asteroid>();
-
         for (int i = 0; i < asteroids.Length; i++)
         {
             Destroy(asteroids[i].gameObject);
+        }
+        Comet[] comets = FindObjectsOfType<Comet>();
+        for (int i = 0; i < comets.Length; i++)
+        {
+            Destroy(comets[i].gameObject);
+        }
+        Spaceship[] starships = FindObjectsOfType<Spaceship>();
+        for (int i = 0; i < starships.Length; i++)
+        {
+            Destroy(starships[i].gameObject);
         }
 
         gameOverUI.SetActive(false);
@@ -65,6 +74,20 @@ public class GameManager : MonoBehaviour
         {
             SetScore(score + 25); // large asteroid
         }
+    }
+    public void CometDestroyed(Comet comet)
+    {
+        explosionEffect.transform.position = comet.transform.position;
+        explosionEffect.Play();
+
+        SetScore(score + 200); // comet
+    }
+    public void SpaceshipDestroyed(Spaceship spaceship)
+    {
+        explosionEffect.transform.position = spaceship.transform.position;
+        explosionEffect.Play();
+
+        SetScore(score + 300); // spaceship
     }
 
     public void PlayerDeath(Player player)

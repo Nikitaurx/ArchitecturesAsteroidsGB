@@ -75,7 +75,7 @@ public class Player : MonoBehaviour // В классе Player реализова
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Asteroid"))
+        if (collision.gameObject.CompareTag("Asteroid") || collision.gameObject.CompareTag("Comet") || collision.gameObject.CompareTag("Spaceship"))
         {
             rigidbody.velocity = Vector3.zero;
             rigidbody.angularVelocity = 0f;

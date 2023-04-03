@@ -1,17 +1,19 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(Rigidbody2D))]
-public class Asteroid : MonoBehaviour
+public class Spaceship : MonoBehaviour
 {
     public new Rigidbody2D rigidbody { get; private set; }
     public SpriteRenderer spriteRenderer { get; private set; }
-    public Sprite[] sprites;
+    //public Sprite[] sprites;
 
     public float size = 1f;
-    public float minSize = 0.35f;
-    public float maxSize = 1.65f;
-    public float movementSpeed = 30f;
+    // public float minSize = 0.35f;
+    // public float maxSize = 1.65f;
+    public float movementSpeed = 50f;
     public float maxLifetime = 30f;
 
     private void Awake()
@@ -22,8 +24,8 @@ public class Asteroid : MonoBehaviour
 
     private void Start()
     {
-        spriteRenderer.sprite = sprites[Random.Range(0, sprites.Length)];
-        Debug.Log(sprites.Length);
+        // spriteRenderer.sprite = sprites[Random.Range(0, sprites.Length)];
+        // Debug.Log(sprites.Length);
 
         transform.eulerAngles = new Vector3(0f, 0f, Random.value * 360f);
         transform.localScale = Vector3.one * size;
@@ -41,26 +43,9 @@ public class Asteroid : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Bullet"))
         {
-            if ((size * 0.5f) >= minSize)
-            {
-                CreateSplit();
-                CreateSplit();
-            }
-
-            FindObjectOfType<GameManager>().AsteroidDestroyed(this);
+            FindObjectOfType<GameManager>().SpaceshipDestroyed(this);
             Destroy(gameObject);
         }
-    }
-
-    private Asteroid CreateSplit()
-    {
-        Vector2 position = transform.position;
-        position += Random.insideUnitCircle * 0.5f;
-
-        Asteroid half = Instantiate(this, position, transform.rotation);
-        half.size = size * 0.5f;
-        half.SetTrajectory(Random.insideUnitCircle.normalized);
-        return half;
     }
 
 }
