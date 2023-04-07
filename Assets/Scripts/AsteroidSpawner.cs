@@ -4,7 +4,7 @@ using System.Threading;
 
 public class AsteroidSpawner : MonoBehaviour
 {
-    public EnemyFactory _enemyFactory;
+    private EnemyFactory _enemyFactory;
     public Asteroid asteroidPrefab;
     public Comet cometPrefab;
     public Spaceship spaceshipPrefab;
@@ -14,6 +14,14 @@ public class AsteroidSpawner : MonoBehaviour
     [Range(0f, 45f)]
     public float trajectoryVariance = 15f;
 
+    public EnemyFactory EnemyFactory
+    {
+        set => _enemyFactory = value;
+    }
+    public void SetEnemyFactory(EnemyFactory enemyFactory)
+    {
+        _enemyFactory = enemyFactory;
+    }
     private void Start()
     {
 
@@ -81,7 +89,9 @@ public class AsteroidSpawner : MonoBehaviour
         while (true)
         {
             //var comets = _enemyFactory.CreateComet();
-            var comets = cometPrefab;
+            var comets = new Comet();
+            comets = cometPrefab;
+
             yield return new WaitForSeconds(5);
             SpawnComet(comets); // для кометы
         }
@@ -90,8 +100,9 @@ public class AsteroidSpawner : MonoBehaviour
     {
         while (true)
         {
-            //var ships = _enemyFactory.CreateShip();
-            var ships = spaceshipPrefab;
+            var ships = _enemyFactory.CreateShip();
+            ships = spaceshipPrefab;
+
             yield return new WaitForSeconds(10);
             SpawnShip(spaceshipPrefab); // для корабля
         }
